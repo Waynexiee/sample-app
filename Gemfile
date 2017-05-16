@@ -33,11 +33,18 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+group :test, :development do
+  gem 'sqlite3', '1.3.12'
   gem 'byebug', platform: :mri
-  gem 'sqlite3'
+end
+group :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+
+
+  gem 'rails-controller-testing', '0.1.1'
+  gem 'guard',                    '2.13.0'
+  gem 'minitest-reporters',       '1.1.9'
+  gem 'guard-minitest',           '2.4.4'
 end
 
 group :development do
@@ -47,14 +54,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
 end
 
 group :production do
   gem 'pg', '0.18.4'
 end
 
-gem 'minitest', group: :test
-gem 'minitest-reporters', group: :test
+
 
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
