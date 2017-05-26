@@ -36,6 +36,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
           }
       }
     end
+
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user) #get the instance variable
     assert_not user.activated?
