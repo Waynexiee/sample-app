@@ -8,6 +8,10 @@ class PasswordResetsController < ApplicationController
   def create
     @user = User.find_by(email: params[:password_reset][:email].downcase)
     if @user
+      unless @user.activated
+        flash[:info] = "This account is not activated."
+        return
+      end
       @user.create_reset_digest
       @user.send_password_reset_email
       flash[:info] = "Email sent with password reset instructions"
@@ -48,6 +52,7 @@ class PasswordResetsController < ApplicationController
     def valid_user
       unless (@user && @user.activated? && @user.authenticated?(:reset, params[:id]))
         redirect_to root_url
+        flash[:info] = "This account is invalid."
       end
     end
 
@@ -57,4 +62,5 @@ class PasswordResetsController < ApplicationController
         redirect_to new_password_reset_url
       end
     end
+
 end
